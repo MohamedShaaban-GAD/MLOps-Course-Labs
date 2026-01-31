@@ -1,0 +1,16 @@
+artifact_uri: mlflow-artifacts:/972148703608036681/638e479125a2405cb6562e91499dc9b2/artifacts
+deleted_time: 1769875467456
+end_time: 1769870915079
+entry_point_name: ''
+experiment_id: '972148703608036681'
+lifecycle_stage: deleted
+run_id: 638e479125a2405cb6562e91499dc9b2
+run_name: wise-hen-543
+run_uuid: 638e479125a2405cb6562e91499dc9b2
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1769870907907
+status: 3
+tags: []
+user_id: 4k

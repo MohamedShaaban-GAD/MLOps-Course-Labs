@@ -1,0 +1,16 @@
+artifact_uri: mlflow-artifacts:/972148703608036681/fa7e87fdc6cf4b1697fde34f2a7827d7/artifacts
+deleted_time: 1769875467437
+end_time: 1769872805577
+entry_point_name: ''
+experiment_id: '972148703608036681'
+lifecycle_stage: deleted
+run_id: fa7e87fdc6cf4b1697fde34f2a7827d7
+run_name: bank_churn_logistic_regression
+run_uuid: fa7e87fdc6cf4b1697fde34f2a7827d7
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1769872793738
+status: 4
+tags: []
+user_id: 4k

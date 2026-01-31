@@ -18,8 +18,20 @@ from sklearn.metrics import (
     confusion_matrix,
     ConfusionMatrixDisplay,
 )
+from sklearn.tree import DecisionTreeClassifier
+from sklearn.ensemble import RandomForestClassifier
+from sklearn.svm import SVC
+import os
+
+
 
 ### Import MLflow
+import mlflow
+import mlflow.sklearn
+from mlflow.models import infer_signature
+from mlflow.data import from_pandas
+
+
 
 def rebalance(data):
     """
@@ -107,11 +119,12 @@ def preprocess(df):
     X_test = pd.DataFrame(X_test, columns=col_transf.get_feature_names_out())
 
     # Log the transformer as an artifact
+    mlflow.sklearn.log_model(col_transf, artifact_path="preprocessor")
 
     return col_transf, X_train, X_test, y_train, y_test
 
 
-def train(X_train, y_train):
+def train(model, X_train, y_train):
     """
     Train a logistic regression model.
 
@@ -122,53 +135,70 @@ def train(X_train, y_train):
     Returns:
         LogisticRegression: trained logistic regression model
     """
-    log_reg = LogisticRegression(max_iter=1000)
-    log_reg.fit(X_train, y_train)
+    model.fit(X_train, y_train)
 
     ### Log the model with the input and output schema
     # Infer signature (input and output schema)
+    signature = infer_signature(X_train, model.predict(X_train))
 
     # Log model
+    mlflow.sklearn.log_model(
+        model,
+        artifact_path=f"model_{model.__class__.__name__}",
+        signature=signature,
+        input_example=X_train.head(3)
+    )
 
     ### Log the data
 
-    return log_reg
+    pd_dataset = mlflow.data.from_pandas(X_train, name="Training Dataset")
+    mlflow.log_input(pd_dataset, context="Training")
+
+    return model
 
 
 def main():
+    os.environ["LOGGER_NAME"] = "GAD"
     ### Set the tracking URI for MLflow
+    mlflow.set_tracking_uri("http://127.0.0.1:5000")
 
     ### Set the experiment name
-
+    mlflow.set_experiment("Bank_Churn_Prediction")
 
     ### Start a new run and leave all the main function code as part of the experiment
+    df = pd.read_csv(r"D:\machine_learning\MLOps-Course-Labs\dataset\Churn_Modelling.csv")
 
-    df = pd.read_csv("data/Churn_Modelling.csv")
-    col_transf, X_train, X_test, y_train, y_test = preprocess(df)
+    ## Log the max_iter parameter
+    for m in [LogisticRegression(max_iter=1000), RandomForestClassifier(max_depth= 3, n_estimators= 10), DecisionTreeClassifier(max_depth= 5, criterion="gini"), SVC(kernel='rbf', C=1.0)]:
+        with mlflow.start_run(run_name=f"Training_{m.__class__.__name__}"):
+            col_transf, X_train, X_test, y_train, y_test = preprocess(df)
+            model = train(m, X_train, y_train)
+            mlflow.log_param("max_iter", 1000)
+            y_pred = model.predict(X_test)
+            ### Log metrics after calculating them
+            accuracy = accuracy_score(y_test, y_pred)
+            precision = precision_score(y_test, y_pred)
+            recall = recall_score(y_test, y_pred)
+            f1 = f1_score(y_test, y_pred)
+            mlflow.log_metric("accuracy", accuracy)
+            mlflow.log_metric("precision", precision)
+            mlflow.log_metric("recall", recall)
+            mlflow.log_metric("f1_score", f1)
+            conf_mat = confusion_matrix(y_test, y_pred)
+            conf_mat_disp = ConfusionMatrixDisplay(
+                confusion_matrix=conf_mat,
+                display_labels=model.classes_)
+            conf_mat_disp.plot()
+            # Log the image as an artifact in MLflow
+            fig_path = "confusion_matrix.png"
+            plt.savefig(fig_path)
+            mlflow.log_artifact(fig_path, artifact_path="confusion_matrix")
+            plt.close()
+            ### Log tag
+            mlflow.set_tag(f"model_type", f"{m.__class__.__name__}")
 
-    ### Log the max_iter parameter
 
-    model = train(X_train, y_train)
-
-    
-    y_pred = model.predict(X_test)
-
-    ### Log metrics after calculating them
-
-
-    ### Log tag
-
-
-    
-    conf_mat = confusion_matrix(y_test, y_pred, labels=model.classes_)
-    conf_mat_disp = ConfusionMatrixDisplay(
-        confusion_matrix=conf_mat, display_labels=model.classes_
-    )
-    conf_mat_disp.plot()
-    
-    # Log the image as an artifact in MLflow
-    
-    plt.show()
+            plt.show()
 
 
 if __name__ == "__main__":

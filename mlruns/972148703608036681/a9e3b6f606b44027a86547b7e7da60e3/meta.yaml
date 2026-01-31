@@ -1,0 +1,16 @@
+artifact_uri: mlflow-artifacts:/972148703608036681/a9e3b6f606b44027a86547b7e7da60e3/artifacts
+deleted_time: 1769870635485
+end_time: 1769870186543
+entry_point_name: ''
+experiment_id: '972148703608036681'
+lifecycle_stage: deleted
+run_id: a9e3b6f606b44027a86547b7e7da60e3
+run_name: nosy-mink-183
+run_uuid: a9e3b6f606b44027a86547b7e7da60e3
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1769870186440
+status: 4
+tags: []
+user_id: 4k

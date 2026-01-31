@@ -1,0 +1,16 @@
+artifact_uri: mlflow-artifacts:/972148703608036681/489b68a2329d42dab85acd74188fb9d3/artifacts
+deleted_time: 1769876104064
+end_time: 1769876029746
+entry_point_name: ''
+experiment_id: '972148703608036681'
+lifecycle_stage: deleted
+run_id: 489b68a2329d42dab85acd74188fb9d3
+run_name: Training_SVC
+run_uuid: 489b68a2329d42dab85acd74188fb9d3
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1769876016070
+status: 3
+tags: []
+user_id: 4k

@@ -1,0 +1,18 @@
+aliases:
+- production
+creation_timestamp: 1769876227736
+current_stage: None
+description: 'We have chosen to deploy the SVC model as it achieves the highest accuracy
+  and performs the best in all the performance metrics.
+
+  RandomForestClassifier is very close to the pm of SVC so we chose it in staging.'
+last_updated_timestamp: 1769876465071
+name: best model
+run_id: 64b3809f71944cfd9e519c90d4c9372e
+run_link: ''
+source: mlflow-artifacts:/972148703608036681/64b3809f71944cfd9e519c90d4c9372e/artifacts/model_SVC
+status: READY
+status_message: null
+storage_location: mlflow-artifacts:/972148703608036681/64b3809f71944cfd9e519c90d4c9372e/artifacts/model_SVC
+user_id: null
+version: 1

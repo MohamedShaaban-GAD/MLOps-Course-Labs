@@ -1,0 +1,16 @@
+artifact_uri: mlflow-artifacts:/972148703608036681/8f9666df27474bc5a587d7f1e1b22edb/artifacts
+deleted_time: 1769875467452
+end_time: 1769871757960
+entry_point_name: ''
+experiment_id: '972148703608036681'
+lifecycle_stage: deleted
+run_id: 8f9666df27474bc5a587d7f1e1b22edb
+run_name: dashing-roo-20
+run_uuid: 8f9666df27474bc5a587d7f1e1b22edb
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1769871719317
+status: 3
+tags: []
+user_id: 4k

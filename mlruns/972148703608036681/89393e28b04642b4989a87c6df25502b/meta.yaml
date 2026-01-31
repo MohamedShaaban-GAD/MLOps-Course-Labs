@@ -1,0 +1,16 @@
+artifact_uri: mlflow-artifacts:/972148703608036681/89393e28b04642b4989a87c6df25502b/artifacts
+deleted_time: 1769870635487
+end_time: 1769870442214
+entry_point_name: ''
+experiment_id: '972148703608036681'
+lifecycle_stage: deleted
+run_id: 89393e28b04642b4989a87c6df25502b
+run_name: honorable-crane-692
+run_uuid: 89393e28b04642b4989a87c6df25502b
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1769870242820
+status: 4
+tags: []
+user_id: 4k
