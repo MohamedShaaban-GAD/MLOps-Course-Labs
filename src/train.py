@@ -126,14 +126,14 @@ def preprocess(df):
 
 def train(model, X_train, y_train):
     """
-    Train a logistic regression model.
+    Train a model.
 
     Args:
         X_train (pd.DataFrame): DataFrame with features
         y_train (pd.Series): Series with target
 
     Returns:
-        LogisticRegression: trained logistic regression model
+        train_model: trained sklearn model
     """
     model.fit(X_train, y_train)
 

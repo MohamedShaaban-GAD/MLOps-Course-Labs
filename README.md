@@ -29,20 +29,21 @@ The goal is not only to train models, but to **compare multiple algorithms**, tr
 
 ## 📂 Project Structure
 
-MLOps-Course-Labs/
-│
-├── dataset/
-│ └── Churn_Modelling.csv
-│
-├── src/
-│ └── train.py
-│
-├── churn_prediction/
-│ └── Scripts/
-│
-├── mlruns/ # Created automatically by MLflow
-│
-└── README.md
+
+    MLOps-Course-Labs/
+    │
+    ├── dataset/
+    │ └── Churn_Modelling.csv
+    │
+    ├── src/
+    │ └── train.py
+    │
+    ├── churn_prediction/
+    │ └── Scripts/
+    │
+    ├── mlruns/ # Created automatically by MLflow
+    │
+    └── README.md
 
 
 ---

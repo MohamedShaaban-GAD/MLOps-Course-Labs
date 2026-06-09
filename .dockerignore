@@ -1,0 +1,13 @@
+churn_prediction/
+dataset/
+mlartifacts/
+mlruns/
+src/
+tests/
+.coverage
+.env
+.gitignore
+*.png
+app/__pycache__/
+app/app.log
+*.md
