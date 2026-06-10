@@ -2,9 +2,7 @@ name: Churn App Test
 
 on:
     push:
-      branches: [research]
-    pull_request:
-      branches: [research]
+      branches: [research, main]
 jobs:
   test:
     runs-on: ubuntu-latest
@@ -34,6 +32,35 @@ jobs:
           tags: |
             ${{ secrets.DOCKERHUB_USERNAME }}/churn-api:latest
             ${{ secrets.DOCKERHUB_USERNAME }}/churn-api:${{ github.sha }}
+
+  deploy-hf-thin:
+    needs: build-and-push
+    runs-on: ubuntu-latest
+    steps:
+      - name: Assemble & push thin Space context
+        env:
+          HF_TOKEN: ${{ secrets.HF_TOKEN }}
+        run: |
+          mkdir space && cd space
+          git init
+
+          # Thin Dockerfile: just pull the image CI already built
+          echo "FROM ${{ secrets.DOCKERHUB_USERNAME }}/churn-api:latest" > Dockerfile
+
+          # Space metadata — app_port matches the image's 8000
+          cat > README.md <<'EOF'
+          ---
+          title: Churn API
+          sdk: docker
+          app_port: 8000
+          ---
+          EOF
+
+          git add .
+          git -c user.email=ci@ci -c user.name=ci commit -m "deploy"
+          git push --force \
+            https://${{ secrets.HF_USERNAME }}:$HF_TOKEN@huggingface.co/spaces/${{ secrets.HF_USERNAME }}/${{ secrets.HF_SPACE }} \
+            HEAD:main
 
 
 
