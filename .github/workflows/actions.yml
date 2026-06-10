@@ -45,7 +45,7 @@ jobs:
           git init
 
           # Thin Dockerfile: just pull the image CI already built
-          echo "FROM ${{ secrets.DOCKERHUB_USERNAME }}/churn-api:latest" > Dockerfile
+          echo "FROM ${{ secrets.DOCKERHUB_USERNAME }}/churn-api:${{ github.sha }}" > Dockerfile
 
           # Space metadata — app_port matches the image's 8000
           cat > README.md <<'EOF'
