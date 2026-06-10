@@ -1,0 +1,19 @@
+name: Churn App Test
+
+on:
+    push:
+      branches: [research]
+    pull_request:
+      branches: [research]
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - run: pip install -r requirements-api.txt
+      - run: pip install pytest pytest-cov httpx
+      - run: pytest --cov=app
+     
